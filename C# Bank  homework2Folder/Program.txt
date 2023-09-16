@@ -1,0 +1,239 @@
+using ConsoleApp3;
+using ConsoleApp7;
+
+Card card1 = new Card("1234567891011345", "1234", "123", "10/2024", 5000);
+Card card2 = new Card("1234067591018349", "5274", "225", "11/2027", 1000);
+Card card3 = new Card("1234567891011345", "3768", "180", "09/2030", 900);
+Card card4 = new Card("1234567891011345", "7759", "591", "01/2026", 800);
+Card card5 = new Card("1234567891011345", "9876", "273", "03/2025", 1200);
+
+User user1 = new User("Mehemmed", "Hemzeyev", card1);
+User user2 = new User("Eli", "Hemzeyev", card2);
+User user3 = new User("Rubail", "Rehmanli", card3);
+User user4 = new User("Pervin", "Agayev", card4);
+User user5 = new User("Muhammed", "Nebiyev", card5);
+
+List<User> users = new List<User>();
+users.Add(user1);
+users.Add(user2);
+users.Add(user3);
+users.Add(user4);
+users.Add(user5);
+
+List<int> amountsWithdrawn = new List<int>();
+
+void start()
+{
+    Console.WriteLine("Pin daxil edin:");
+    string pin = Console.ReadLine();
+    int checkPin = 0;
+    int recursion = 0;
+
+    for (int i = 0; i < users.Count; i++)
+    {
+        if (users[i].CreditCard.PIN == pin)
+        {
+            checkPin++;
+            Console.WriteLine($"{users[i].Name} {users[i].Surname} xos gelmisiniz zehmet olmasa asagidakilardan birini secerdiniz");
+            Console.WriteLine("1.Balans\n2.Nagd pul\n3.Emeliyyatlarin siyahisi\n4.Kartdan karta pul kocurme\n5.Exit");
+            string choice = Console.ReadLine();
+            
+            if(choice == "1")
+            {
+                Console.WriteLine($"Balans : {users[i].CreditCard.Balans}"); 
+            }
+
+            else if(choice == "2") 
+            {
+                Console.WriteLine("1.Kartdaki balansi gostermek\n2.Pul cixartmaq");
+                string choice2 = Console.ReadLine();
+                if(choice2 == "1")
+                {
+                    Console.WriteLine($"Balans : {users[i].CreditCard.Balans}");
+                }
+
+                else if (choice2=="2")
+                {
+                    Console.WriteLine("1.10\n2.20\n3.50\n4.100\n5.Diger");
+                    string choice3 = Console.ReadLine();
+
+                    if (choice3 == "1")
+                    {
+                        if (users[i].CreditCard.Balans - 10 >= 0)
+                        {
+                            users[i].CreditCard.Balans -= 10;
+                            amountsWithdrawn.Add(10);
+                        }
+                        else
+                        {
+                            throw new BalansException();
+                        }
+                    }
+
+                    else if(choice3 == "2")
+                    {
+                        if (users[i].CreditCard.Balans - 20 >= 0)
+                        {
+                            users[i].CreditCard.Balans -= 20;
+                            amountsWithdrawn.Add(20);
+                        }
+                        else
+                        {
+                            throw new BalansException();
+                        }
+                    }
+
+                    else if (choice3 == "3")
+                    {
+                        if (users[i].CreditCard.Balans - 50 >= 0)
+                        {
+                            users[i].CreditCard.Balans -= 50;
+                            amountsWithdrawn.Add(50);
+                        }
+                        else
+                        {
+                            throw new BalansException();
+                        }
+                    }
+
+                    else if (choice3 == "4")
+                    {
+                        if (users[i].CreditCard.Balans - 100 >= 0)
+                        {
+                            users[i].CreditCard.Balans -= 100;
+                            amountsWithdrawn.Add(100);
+                        }
+                        else
+                        {
+                            throw new BalansException();
+                        }
+                    }
+
+                    else if (choice3 == "5")
+                    {
+                        Console.WriteLine("Cixarilacaq meblegi daxil edin: ");
+                        int outMoney = int.Parse(Console.ReadLine());
+
+                        if (users[i].CreditCard.Balans - outMoney >= 0)
+                        {
+                            users[i].CreditCard.Balans -= outMoney;
+                            amountsWithdrawn.Add(outMoney);
+                        }
+                        else
+                        {
+                            throw new BalansException();
+                        }
+                    }
+
+                    else 
+                    {
+                        Console.WriteLine("Siz yanlis secim etdiniz");
+                    }
+                }
+
+                else
+                {
+                    Console.WriteLine("Siz yanlis secim etdiniz");
+                }
+
+            }
+
+            else if(choice == "3")
+            {
+                for (i=0;i<amountsWithdrawn.Count;i++) 
+                {
+                    Console.WriteLine(amountsWithdrawn[i].ToString());
+                }
+            }
+
+            else if(choice == "4")
+            {
+                Console.WriteLine("Gonderilecek kartin pinin daxil edin: ");
+                string pinCartToCart = Console.ReadLine();
+                int checkPinCartToCart = 0;
+
+                for (int j=0; j < users.Count; j++)
+                {
+                    if (users[j].CreditCard.PIN == pinCartToCart)
+                    {
+                        checkPinCartToCart ++;
+
+                        Console.WriteLine("Gonderilecek pulu daxil edin:");
+                        int sendMoney = int.Parse(Console.ReadLine());
+
+                        if (users[i].CreditCard.Balans - sendMoney >= 0)
+                        {
+                            users[i].CreditCard.Balans -= sendMoney;
+                            amountsWithdrawn.Add(sendMoney);
+                        }
+
+                        else
+                        {
+                            throw new BalansException();
+                        }
+
+                    }
+                }
+
+                if (checkPinCartToCart == 0)
+                {
+                    throw new PinException();
+                }
+            }
+
+            else if(choice == "5")
+            {
+                Console.WriteLine("Siz proqramdan cixdiniz");
+                recursion++;
+                break;
+            }
+
+            else
+            {
+                Console.WriteLine("Siz yanlis secim etdiniz");
+            }
+        }
+    }
+    if (checkPin == 0)
+    {
+        throw new PinException();
+    }
+
+    if(recursion == 0)
+    {
+        start();
+    }
+
+   
+    
+}
+
+try
+{
+    start();
+}
+
+catch (PinException ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+catch (PinException2 ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+catch (BalansException ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+catch (PanException ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+catch (CvcException ex)
+{
+    Console.WriteLine(ex.Message);
+}

@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp3
+{
+    public class Client
+    {
+
+        public int Id { get; set; }
+        public string Name {get; set; }
+        public string Surname { get; set; }
+        public int Age {get; set; }
+        public int salary { get; set; }
+        public BankCard BankAccount { get; set; }
+
+        public Client(int id, string name, string surname, int age, int salary, BankCard bankAccount)
+        {
+            Id = id;
+            Name = name;
+            Surname = surname;
+            Age = age;
+            this.salary = salary;
+            BankAccount = bankAccount;
+        }
+
+    }
+}

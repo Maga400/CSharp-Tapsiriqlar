@@ -1,0 +1,32 @@
+using ConsoleApp3;
+
+try
+{
+    BankCard card1 = new BankCard("Uni Bank", "Mehemmed Hemzeyev", "1234567890123456", "1244", "123", "04/2023", 100);
+    BankCard card2 = new BankCard("Leo Bank", "Eli Hemzeyev", "123452950123956", "1279", "73", "09/2027", 500);
+    Client client1 = new Client(1, "Mehemmed", "Hemzeyev", 25, 200000, card1);
+    Client client2 = new Client(1, "Eli", "Hemzeyev", 25, 150000, card2);
+
+    List<Client> clients = new List<Client>();
+    clients.Add(client1);
+    clients.Add(client2);
+
+    Bank bank = new Bank(clients);
+    bank.showCardBalance(card1);
+    bank.showCardBalance(card2);
+}
+
+catch(PinException ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+catch (PanException ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+catch(CvcException ex)
+{
+    Console.WriteLine(ex.Message);
+}

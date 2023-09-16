@@ -1,0 +1,54 @@
+using ConsoleApp7;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp3
+{
+    public class Card
+    {
+
+        public string PAN { get; set; }
+        public string PIN { get; set; }
+        public string CVC { get; set; }
+        public string ExpireDate { get; set; }
+        public decimal Balans { get; set; }
+
+        public Card(string pAN, string pIN, string cVC, string expireDate, decimal balans)
+        {
+            if (pAN.Length != 16)
+            {
+                throw new PanException();
+            }
+            else
+            {
+                PAN = pAN;
+            }
+            
+            if(pIN.Length != 4)
+            {
+                throw new PinException2();
+            }
+
+            else
+            {
+                PIN = pIN;
+            }
+
+            if (cVC.Length != 3)
+            {
+                throw new CvcException();
+            }
+
+            else
+            {
+                CVC = cVC;
+            }
+
+            ExpireDate = expireDate;
+            Balans = balans;
+        }
+    }
+}

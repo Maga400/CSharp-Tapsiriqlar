@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp3
+{
+    public class BankCard
+    {
+
+        public string BankName {get; set;}
+        public string Fullname { get; set; }
+        public string PAN { get; set; }
+        public string PIN { get;set; }
+        public string CVC { get; set; }
+        public string ExpireDate { get; set; }
+        public int Balans { get; set; }
+
+        public BankCard(string bankName, string fullname, string pAN, string pIN, string cVC, string expireDate, int balans)
+        {
+            BankName = bankName;
+            Fullname = fullname;
+
+            if (pAN.Length != 16)
+            {
+                throw new PanException();
+            }
+
+            else
+            {
+                PAN = pAN;
+            }
+            if(pIN.Length !=4)
+            {
+                throw new PinException();
+            }
+
+            else
+            {
+                PIN = pIN;
+            }
+
+            if (cVC.Length != 3)
+            {
+                throw new CvcException();
+            }
+            else
+            {
+                CVC = cVC;
+            }
+
+            ExpireDate = expireDate;
+            Balans = balans;
+
+            
+        }
+
+    }
+}
